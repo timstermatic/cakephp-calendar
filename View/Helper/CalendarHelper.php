@@ -6,7 +6,7 @@ class CalendarHelper extends AppHelper {
  * uses HTML helper
  */
 	
-	public $helpers = array('Html');
+	public $helpers = array('Html', 'Form');
 
 /**
  * displays a tabular calendar
@@ -22,15 +22,31 @@ class CalendarHelper extends AppHelper {
  */
  	public function display($date = null, $options=array()) {
 
+		if($this->request->data['Calendar']) {
+			$date = $this->request->data['Calendar']['year']['year'] . '-' . $this->request->data['Calendar']['month']['month'] . '-1';
+		}
+
 		// set date parts
 		$date = empty($date)?date('Y-m-d'):$date;
-		$month = date('m', strtotime($date));
-		$year = date('Y', strtotime($date));
-	
+		$timestring = strtotime($date);
+		$month = date('m', $timestring);
+		$year = date('Y', $timestring);
+
 		// @TODO make this a property that can be configured (i18n)
 		$headings = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
 
 		$calendar = '<table class="table">';
+
+		if(!empty($options['dateSelect'])) { 
+			$calendar .= $this->Form->create();
+			$calendar .= $this->Form->input('Calendar.year', array('type'=>'date','dateFormat'=>'Y'));
+			$calendar .= $this->Form->input('Calendar.month', array('type'=>'date','dateFormat'=>'M'));
+			$calendar .= $this->Form->button(__('&raquo;'),array('type'=>'date','dateFormat'=>'M'));
+			$calendar .= $this->Form->end();
+		}
+
+
+
 		$calendar .= $this->Html->tableHeaders($headings);
 
 		/* days and weeks vars now ... */
