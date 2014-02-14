@@ -22,7 +22,7 @@ class CalendarHelper extends AppHelper {
  */
  	public function display($date = null, $options=array()) {
 
-		if($this->request->data['Calendar']) {
+		if(!empty($this->request->data['Calendar'])) {
 			$date = $this->request->data['Calendar']['year']['year'] . '-' . $this->request->data['Calendar']['month']['month'] . '-1';
 		}
 
