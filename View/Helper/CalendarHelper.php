@@ -109,7 +109,7 @@ class CalendarHelper extends AppHelper {
 		}
 		$calendar.= '</tr></table>';
 
-		echo $calendar;
+		return $calendar;
 	}
 
 }
