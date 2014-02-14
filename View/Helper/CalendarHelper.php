@@ -14,11 +14,6 @@ class CalendarHelper extends AppHelper {
  * @param $date date in yyyy-mm-dd format to show month for
  *
  * @param $option array of options:
- *
- * @TODO add option for month to month navigation
- * @TODO add option for year selection
- * @TODO add ability to pass on array of events
- *
  */
  	public function display($date = null, $options=array(), $events=array()) {
 
