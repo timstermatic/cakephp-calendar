@@ -20,7 +20,7 @@ class CalendarHelper extends AppHelper {
  * @TODO add ability to pass on array of events
  *
  */
- 	public function display($date = null, $options=array()) {
+ 	public function display($date = null, $options=array(), $events=array()) {
 
 		if(!empty($this->request->data['Calendar'])) {
 			$date = $this->request->data['Calendar']['year']['year'] . '-' . $this->request->data['Calendar']['month']['month'] . '-1';
@@ -68,7 +68,22 @@ class CalendarHelper extends AppHelper {
 
 		/* days of this month*/
 		for($list_day = 1; $list_day <= $days_in_month; $list_day++) {
-			$calendar.= '<td class="calendar-day"><div class="calendar-day-number">'.$list_day.'</td></div>';
+			$calendar.= '<td class="calendar-day"><div class="calendar-day-number">'.$list_day;
+			
+			if(!empty($events[$list_day])) {
+			
+				$calendar .= '<ul class="list-unstyled">';
+					
+					foreach($events[$list_day] as $e) {
+						$calendar .= '<li>'.$e.'</li>';
+					}
+
+
+				$calendar .= '</ul>';
+			
+			}
+			
+			$calendar .= '</td></div>';
 
 			if($running_day == 6) 
 			{
